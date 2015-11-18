@@ -1,0 +1,6 @@
+comit_blog:
+    resource: "@ComitBlogBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
