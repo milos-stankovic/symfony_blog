@@ -18,6 +18,21 @@ What's the app_dev.php in the URL?
          for speed. To learn more about this and environments, see Environments.
 
 5. TWIG: The easiest way to use Twig - or many other tools in Symfony - is to extend Symfony's base Controller class:
+6. Entity manager:
+
+The getDoctrine() method lives inside Symfony’s Controller class, which we’re extending. 
+Open up that class to see what this method does:
+
+// vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php
+public function getDoctrine()
+{
+    return $this->container->get('doctrine');
+}
+
+The getDoctrine method is just a shortcut to get the service object called doctrine from the container.
+This means that no matter where we are, the process to get the entity manager is always the same: 
+get the container, get the doctrine service, then call getManager on it.
+
 
 -------------------------------------------------------------------------------------
 Read/practice about:
