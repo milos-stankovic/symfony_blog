@@ -75,38 +75,5 @@ class Category
     {
         return $this->name;
     }
-
-    /**
-     * Add product
-     *
-     * @param \ComitBlogBundle\Entity\Product $product
-     *
-     * @return Category
-     */
-    public function addProduct(\ComitBlogBundle\Entity\Product $product)
-    {
-        $this->products[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * Remove product
-     *
-     * @param \ComitBlogBundle\Entity\Product $product
-     */
-    public function removeProduct(\ComitBlogBundle\Entity\Product $product)
-    {
-        $this->products->removeElement($product);
-    }
-
-    /**
-     * Get products
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProducts()
-    {
-        return $this->products;
-    }
 }
+

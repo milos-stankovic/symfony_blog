@@ -1,7 +1,7 @@
 <?php
 
 namespace ComitBlogBundle\Entity;
-
+use Doctrine\ORM\EntityRepository;
 /**
  * ProductRepository
  *
@@ -10,4 +10,11 @@ namespace ComitBlogBundle\Entity;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllOrderedByName()
+    {
+        return $this->getEntityManager()
+                    ->createQuery('select p from ComitBlogBundle:Product p ORDER BY  p.name ASC ')
+                    ->getResult();
+    }
+
 }
