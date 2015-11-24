@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class LuckyController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="home")
      */
 
     public function helloAction()

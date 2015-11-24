@@ -80,7 +80,7 @@ swiftmailer:
     spool:     { type: memory }
 
 # FOSUserBundle Configuration
-fos_user:
-    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
-    firewall_name: main
-    user_class: AppBundle\Entity\User
+#fos_user:
+#    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+#    firewall_name: main
+#    user_class: AppBundle\Entity\User
