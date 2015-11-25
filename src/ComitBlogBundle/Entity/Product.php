@@ -3,7 +3,7 @@
 namespace ComitBlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Product
  *
@@ -34,6 +34,18 @@ class Product
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min = 2,
+     *     minMessage="Minimum 2 characters!",
+     *     max = 15,
+     *     maxMessage="Not more than 15 characters!"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^\w+/",
+     *     match=false,
+     *     message="Your name cannot contain a number."
+     * )
      */
     private $name;
 
@@ -41,6 +53,12 @@ class Product
      * @var string
      *
      * @ORM\Column(name="price", type="decimal")
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *     min=1,
+     *     max=9,
+     *     minMessage="There's nothing for free here!"
+     * )
      */
     private $price;
 
@@ -56,6 +74,18 @@ class Product
      * Get id
      *
      * @return integer
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min = 2,
+     *     minMessage="Minimum 2 characters!",
+     *     max = 15,
+     *     maxMessage="Not more than 15 characters!"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^\w+/",
+     *     match=false,
+     *     message="Your name cannot contain a number."
+     * )
      */
     public function getId()
     {
@@ -157,4 +187,7 @@ class Product
     {
         return $this->category;
     }
+
+
+
 }

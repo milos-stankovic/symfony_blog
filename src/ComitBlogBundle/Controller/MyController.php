@@ -5,6 +5,7 @@ namespace ComitBlogBundle\Controller;
 use ComitBlogBundle\Entity\Category;
 use ComitBlogBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -148,6 +149,42 @@ class MyController extends Controller
 
             .'and category id' .$category->getId()
         );
+    }
+
+    //<----------------- FORMS---------------------------------->
+    /**
+     * @return Response
+     * @Route("/products/add-new")
+     */
+    public function addNewProductForm(Request $request)
+    {
+        $product = new Product();
+
+        $form = $this->createFormBuilder($product)
+            ->add('name','text')
+            ->add('price', 'number')
+            ->add('description', 'text')
+            ->add('category', 'entity', array(
+                'class' => 'ComitBlogBundle:Category',
+                'choices' => $product->getCategory()
+            ))
+            ->add('save', 'submit')
+            ->getForm();
+
+        // handleRequest() = When the user submits the form,
+        // handleRequest() recognizes this and immediately writes the
+        // submitted data back $product
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            return new Response('Product added successfuly');
+        }
+
+        return $this->render('default/new.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
 }
