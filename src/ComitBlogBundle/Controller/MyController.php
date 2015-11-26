@@ -4,6 +4,7 @@ namespace ComitBlogBundle\Controller;
 
 use ComitBlogBundle\Entity\Category;
 use ComitBlogBundle\Entity\Product;
+use ComitBlogBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -186,5 +187,31 @@ class MyController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @return Response
+     * @Route("/products/add/new")
+     */
+    public function addProductAction(Request $request)
+    {
+        $product = new Product();
+        $form = $this->createForm(new ProductType(), $product);
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+        }
+        $session = $this->get('session');
+        $session->getFlashBag()->add('message', 'Product added successfuly');
+
+        return $this->render('default/form.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+    }
+
+
 
 }

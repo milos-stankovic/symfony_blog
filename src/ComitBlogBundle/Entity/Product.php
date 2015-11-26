@@ -43,7 +43,7 @@ class Product
      * )
      * @Assert\Regex(
      *     pattern="/^\w+/",
-     *     match=false,
+     *
      *     message="Your name cannot contain a number."
      * )
      */

@@ -1,0 +1,17 @@
+{#form_end<form action="" method="post">#}
+    {#<button type="submit" class="btn btn-primary"></button>#}
+{#</form>#}
+
+{{ form_start(form) }}
+
+    {#{{ form_row(form.name) }}#}
+    {#{{ form_row(form.price) }}#}
+    {#{{ form_row(form.description) }}#}
+    {#{{ form_row(form.category) }}#}
+
+{# renders all fields #}
+{{ form_widget(form) }}
+
+<button type="submit" class="btn btn-default">Submit</button>
+
+{{ form_end(form) }}
