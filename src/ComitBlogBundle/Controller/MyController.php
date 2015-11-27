@@ -19,6 +19,17 @@ class MyController extends Controller
 
     /**
      * @return Response
+     * @Route("/test/")
+     */
+
+    public function Test()
+    {
+        return $this->render('default/test.html.twig');
+    }
+
+
+    /**
+     * @return Response
      * @Route("/products/add")
      */
 
