@@ -1,13 +1,28 @@
-{% extends "base.html.twig" %}
-{% block title %}Index{% endblock %}
-{% block head %}
-    {{ parent() }}
-    <style type="text/css">
-        .special { color: red; }
-    </style>
+{#{% extends "base.html.twig" %}#}
+{#{% block title %}Index{% endblock %}#}
+{#{% block head %}#}
+    {#{{ parent() }}#}
+    {#<style type="text/css">#}
+        {#.special { color: red; }#}
+    {#</style>#}
+{#{% endblock %}#}
+{#{% block content %}#}
+    {#<p>#}
+        {#Welcome to my awesome homepage.#}
+    {#</p>#}
+{#{% endblock %}#}
+
+<!DOCTYPE html>
+<html>
+<head><!-- whatever -->
+    {% block header %}  {% endblock %}
+</head>
+<body>
+{% block body %}
+{{ include('form.html.twig') }}
+
 {% endblock %}
-{% block content %}
-    <p>
-        Welcome to my awesome homepage.
-    </p>
-{% endblock %}
+
+
+</body>
+</html>

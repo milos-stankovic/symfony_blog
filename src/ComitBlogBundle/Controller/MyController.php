@@ -19,12 +19,12 @@ class MyController extends Controller
 
     /**
      * @return Response
-     * @Route("/test/")
+     * @Route("products/test")
      */
 
     public function Test()
     {
-        return $this->render('default/test.html.twig');
+        return $this->render('default/products.html.twig');
     }
 
 
@@ -129,8 +129,10 @@ class MyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('ComitBlogBundle:Product')
                 ->findAllOrderedByName();
-
-        return new Response(dump($product));
+        return $this->render('default/products.html.twig', array(
+        'products' => $product,
+    ));
+//        return new Response($view);
     }
     //<-------------------------------------- RELATIONS -------->
     /**
@@ -223,6 +225,10 @@ class MyController extends Controller
 
     }
 
+//    public function Test()
+//    {
+//        return $this->render();
+//    }
 
 
 }
