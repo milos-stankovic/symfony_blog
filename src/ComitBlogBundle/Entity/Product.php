@@ -42,9 +42,9 @@ class Product
      *     maxMessage="Not more than 15 characters!"
      * )
      * @Assert\Regex(
-     *     pattern="/^\w+/",
+     *     pattern="/^[\w\s]+$/",
      *
-     *     message="Your name cannot contain a number."
+     *     message="At least two words"
      * )
      */
     private $name;
@@ -56,7 +56,7 @@ class Product
      * @Assert\NotBlank()
      * @Assert\Range(
      *     min=1,
-     *     max=9,
+     *     max=900,
      *     minMessage="There's nothing for free here!"
      * )
      */
@@ -74,18 +74,7 @@ class Product
      * Get id
      *
      * @return integer
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     min = 2,
-     *     minMessage="Minimum 2 characters!",
-     *     max = 15,
-     *     maxMessage="Not more than 15 characters!"
-     * )
-     * @Assert\Regex(
-     *     pattern="/^\w+/",
-     *     match=false,
-     *     message="Your name cannot contain a number."
-     * )
+     *
      */
     public function getId()
     {

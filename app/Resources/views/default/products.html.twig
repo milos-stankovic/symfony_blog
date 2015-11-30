@@ -1,20 +1,28 @@
 {% extends "base.html.twig" %}
 {% block body %}
 <h1>Admin Panel</h1>
-<table class="rwd-table">
-    <tr>
-        <th>id</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Description</th>
-    </tr>
-    <tr>
+    <table>
+        <thead>
+        <tr>
+            <th>ID
+            <th>Product Name
+            <th>Price
+            <th>Description
+            <th>Category
+            <th> EDIT
+            <th> DELETE
+        </thead>
+        <tbody>
         {% for product in products %}
-            <td>{{product.id}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-            <td>{{product.description}}</td>
+        <tr>
+            <td>{{product.id}}
+            <td>{{product.name}}
+            <td>{{product.price}}
+            <td>{{product.description}}
+            <td>{{ product.category }}
+            <td><a href="{{ path('edit', {'id': product.id}) }}">EDIT</a>
+            <td><a href="{{ path('delete', {'id': product.id}) }}">DELETE</a>
+        </tbody>
         {% endfor %}
-    </tr>
-</table>
+    </table>
 {% endblock %}

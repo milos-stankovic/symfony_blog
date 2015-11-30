@@ -97,13 +97,13 @@ class MyController extends Controller
         );
 
         //dump($products4);
-        return new Response(dump($products4));
+        return new Response(dump($products1));
     }
 
     /**
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/products/edit/{id}")
+     * @Route("/products/editt/{id}")
      */
     public function updateAction($id)
     {
@@ -121,7 +121,7 @@ class MyController extends Controller
     }
 
     /**
-     * @Route("/products/repository/finder")
+     * @Route("/products/repository/finder", name="products")
      *
      */
     public function findUsingRepository()
@@ -225,10 +225,69 @@ class MyController extends Controller
 
     }
 
-//    public function Test()
-//    {
-//        return $this->render();
-//    }
+    /**
+     *
+     * @Route("/products/edit/{id}", name="edit")
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
 
+    public function editProductAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('ComitBlogBundle:Product')->find($id);
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+        $form = $this->createForm(new ProductType(), $product);
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('products');
+        }
+        $session = $this->get('session');
+        $session->getFlashBag()->add('message', 'Product updated successfully');
+
+        return $this->render('default/edit_form.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+
+
+    }
+
+    /**
+     *
+     * @Route("/products/delete/{id}", name="delete")
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+
+    public function deleteProductAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('ComitBlogBundle:Product')->find($id);
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($product);
+            $em->flush();
+
+        $session = $this->get('session');
+        $session->getFlashBag()->add('message', 'Product deleted successfully');
+        return $this->redirectToRoute('products');
+    }
 
 }
