@@ -2,11 +2,11 @@
     {#<button type="submit" class="btn btn-primary"></button>#}
 {#</form>#}
 {#{% extends "base.html.twig" %}#}
+{% form_theme form 'default/labels.html.twig' %}
 {{ form_start(form) }}
-    {{ form_label(form.name, 'Enter your name'|reverse) }}
+    {{ form_label(form.name, 'Enter your name') }}
     {{ form_row(form.name) }}
     {{ form_row(form.price) }}
-    {#{{ form_row(form.description) }}#}
     {{ form_row(form.description, { 'label': 'Description' }) }}
     {{ form_row(form.category) }}
 
