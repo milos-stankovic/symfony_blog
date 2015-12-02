@@ -10,23 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+
 class MyController extends Controller
 {
-//    public function indexAction($name)
-//    {
-//        return $this->render('', array('name' => $name));
-//    }
 
     /**
      * @return Response
-     * @Route("products/test")
+     * @Route("/products/test", name="test")
      */
-
     public function Test()
     {
-        return $this->render('default/products.html.twig');
+        return $this->render(':FOSUserBundle:login.html.twig');
     }
-
 
     /**
      * @return Response
@@ -121,7 +116,7 @@ class MyController extends Controller
     }
 
     /**
-     * @Route("/products/repository/finder", name="products")
+     * @Route("/products", name="products")
      *
      */
     public function findUsingRepository()
