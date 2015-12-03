@@ -9,10 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
+use FOS\UserBundle\Controller\SecurityController as BaseController;
 
 class MyController extends Controller
 {
+
 
     /**
      * @return Response
@@ -21,6 +22,15 @@ class MyController extends Controller
     public function Test()
     {
         return $this->render(':FOSUserBundle:login.html.twig');
+    }
+
+    /**
+     * @return Response
+     * @Route("/signin", name="signin")
+     */
+    public function logIn()
+    {
+        return $this->render('@FOSUser/Security/login.html.twig');
     }
 
     /**

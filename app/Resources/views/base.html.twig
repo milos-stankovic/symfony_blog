@@ -1,57 +1,115 @@
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+
 <!DOCTYPE html>
+
+{% block html_tag %}
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
-    <title>{% block title %}top{% endblock %} - shop</title>
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    {% block stylesheets %}
-        <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
-        <link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" />
-    {% endblock %}
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-</head>
-<body>
+{% endblock html_tag %}
 
-<section id="wrapper">
-    <header id="header">
-        <div class="top">
-            {% block navigation %}
-                <nav>
-                    <ul class="navigation">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
-                </nav>
-            {% endblock %}
+{% block head %}
+    <head>
+        <meta charset="UTF-8"/>
+        {% block head_style %}
+            {# Override this block to add your own files! #}
+            {% stylesheets
+            '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+            '@MopaBootstrapBundle/Resources/public/less/eyecon-bootstrap-datepicker.less' %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
+            {% endstylesheets %}
+            {# To use this without less use the base_css.html.twig template as your base
+             # Be sure you understand whats going on: have a look into
+             # https://github.com/phiamo/MopaBootstrapBundle/blob/master/Resources/doc/css-vs-less.md
+             #}
+        {% endblock head_style %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% block head_script %}
+            {# Overwrite this block to add your own js here, to get them generated into final files #}
+        {% endblock head_script %}
+
+        <title>{% block title %}Mopa Bootstrap Bundle{% endblock title %}</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
+        {% block head_bottom %}
+        {% endblock head_bottom %}
+    </head>
+{% endblock head %}
+
+{% block body_tag %}
+<body data-spy="scroll">
+{% endblock body_tag %}
+
+{% block body_start %}
+{% endblock body_start %}
+
+{% block body %}
+    {% block navbar %}
+
+    {% endblock navbar %}
+
+{% block container %}
+{% block container_div_start %}<div class="{% block container_class %}container{% endblock container_class %}">{% endblock container_div_start %}
+    {% block header %}
+    {% endblock header %}
+
+{% block content_div_start %}
+    <div class="content">{% endblock content_div_start %}
+    {% block page_header %}
+        <div class="page-header">
+            <h1>{% block headline %}Mopa Bootstrap Bundle{% endblock headline %}</h1>
         </div>
+    {% endblock page_header %}
 
-        <hgroup>
-            <h2>{% block blog_title %}<a href="#">TopShop</a>{% endblock %}</h2>
-            <h3>{% block blog_tagline %}<a href="#">Practice Symfony2</a>{% endblock %}</h3>
-        </hgroup>
-    </header>
+    {% block flashes %}
+        {% if app.session.flashbag.peekAll|length > 0 %}
+            <div class="row">
+                <div class="span12">
+                    {{ session_flash() }}
+                </div>
+            </div>
+        {% endif %}
+    {% endblock flashes %}
 
-    <section class="main-col">
-        {% block body %}{% endblock %}
-    </section>
-    <aside class="sidebar">
-        {% block sidebar %}
+    {% block content_row %}
+        <div class="row">
+            {% block content %}
+                <div class="span9">
+                    {% block content_content %}
+                        <strong>Hier könnte Ihre Werbung stehen ... </strong>
+                    {% endblock content_content %}
+                </div>
+                <div class="span3">
+                    {% block content_sidebar %}
 
-        {% endblock %}
-    </aside>
-
-    <div id="footer">
+                        <h2>Sidebar</h2>
+                    {% endblock content_sidebar %}
+                </div>
+            {% endblock content %}
+        </div>
+    {% endblock content_row %}
+{% block content_div_end %}</div>{% endblock content_div_end %}
+    <footer>
         {% block footer %}
-            All rights to <a href="https://github.com/milos-stankovic">Shomsy</a>
-        {% endblock %}
-    </div>
-</section>
+            <p>&copy; <a href="http://www.mohrenweiserpartner.de" target="_blank">Mohrenweiser & Partner</a> 2011-2013
+            </p>
+        {% endblock footer %}
+    </footer>
+{% block container_div_end %}</div><!-- /container -->{% endblock container_div_end %}
+{% endblock container %}
+{% block foot_script %}
+    {# To only use a subset or add more js overwrite and copy paste this block
+    To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
+    Otherwise the regeneration is done on every load in dev more with use_controller: true
+     #}
 
-{% block javascripts %}{% endblock %}
+    {% javascripts
+    'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock foot_script %}
+{% endblock body %}
 </body>
 </html>
