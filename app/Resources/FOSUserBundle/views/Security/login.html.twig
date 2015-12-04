@@ -1,16 +1,22 @@
 {#{{ "MY FORM" }}#}
-{% extends 'base.html.twig' %}
+{% extends '::base.html.twig' %}
 
 
 {% block title %}Login Form{% endblock title %}
 
-{% block headline %} Login Please! {% endblock headline %}
 
-{% block body %}
+{% block headline %}Login Please:{% endblock headline %}
+
 
     {% block content %}
-        {{ include('@FOSUser/Security/login.html.twig') }}
 
+        {{ include('@FOSUser/Security/login_content.html.twig') }}
 
     {% endblock %}
-{% endblock %}
+
+{% block footer %}
+
+    <p>&copy; <a href="comit group" target="_blank">Milos_Shomsy</a> 2015
+    </p>
+
+{% endblock footer %}
