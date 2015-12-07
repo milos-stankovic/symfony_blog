@@ -1,0 +1,1 @@
+[2015-12-07 11:14:51] php.CRITICAL: Fatal Error: Class 'JsonSchema\Validator' not found {"type":1,"file":"phar:///usr/local/bin/composer/src/Composer/Json/JsonFile.php","line":160,"level":6143,"stack":[]} []

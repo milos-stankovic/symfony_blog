@@ -13,7 +13,10 @@
             {# Override this block to add your own files! #}
             {% stylesheets
             '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
-            '@MopaBootstrapBundle/Resources/public/less/eyecon-bootstrap-datepicker.less' %}
+            '@MopaBootstrapBundle/Resources/public/less/eyecon-bootstrap-datepicker.less'
+            '@MopaBootstrapBundle/Resources/bootstrap/dist/css/bootstrap.min.css'
+            %}
+
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
             {% endstylesheets %}
             {# To use this without less use the base_css.html.twig template as your base
@@ -106,7 +109,9 @@
     'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-    '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js' %}
+    '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
+    '@MopaBootstrapBundle/Resources/bootstrap/dist/js/bootstrap.min.js'
+    %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock foot_script %}
