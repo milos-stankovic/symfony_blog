@@ -78,7 +78,7 @@ class MyController extends Controller
      * @param $id
      * @Route("/products/show2/{id}")
      */
-    public function showAction2($id)
+    public function showAction2($id, $category_id)
     {
         // ...->getRepository('bundle_name:entity_name');
         $repository = $this->getDoctrine()->getRepository('ComitBlogBundle:Product');
@@ -101,8 +101,10 @@ class MyController extends Controller
             array('price' => 'ASC')
         );
 
+        $products15 = $repository->findByCategory($category_id);
+
         //dump($products4);
-        return new Response(dump($products1));
+        return new Response(dump($products15));
     }
 
     /**
@@ -126,19 +128,52 @@ class MyController extends Controller
     }
 
     /**
-     * @Route("/products", name="products")
+     * @Route("/products/{category_id}", defaults={"category_id" = 0}, name="products")
      *
      */
-    public function findUsingRepository()
+    public function findUsingRepository($category_id)
     {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('ComitBlogBundle:Product')
-                ->findAllOrderedByName();
+                ->findAll();
+        $filter = $em->getRepository('ComitBlogBundle:Product')
+            ->findByCategory($category_id);
+        $category = $em->getRepository('ComitBlogBundle:Category')
+                ->findAll();
+
+//        $filter = $em->getRepository('ComitBlogBundle:Product')
+//            ->findByCategory($category_id);
+
         return $this->render('default/products.html.twig', array(
         'products' => $product,
+        'categories' => $category,
+        'filter' => $filter
     ));
 //        return new Response($view);
     }
+
+    /**
+     * @Route("/products/category/{category_id}", name="sort")
+     *
+     */
+    public function filterByCategoryAction($category_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $em->getRepository('ComitBlogBundle:Product')
+            ->findByCategory($category_id);
+        $category = $em->getRepository('ComitBlogBundle:Category')
+            ->findAll();
+//        dump($product);
+        return $this->render('default/products_category.html.twig',
+            array(
+            'products' => $product,
+            'categories' => $category,
+        ));
+
+//        return new Response($view);
+    }
+
     //<-------------------------------------- RELATIONS -------->
     /**
      * @return Response

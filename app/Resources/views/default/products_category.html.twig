@@ -5,8 +5,10 @@
 {% for key,category in categories %}
 <tr>
     <td><a href="{{ path('sort', {'category_id':category.id}) }}">{{ category.name }}</a></td>
-    {#<td><a href="{{ path('products', {'category_id':category.id}) }}">{{ category.name }}</a></td>#}
+
     {% endfor %}
+
+    <form>
     <table>
         <thead>
         <tr>
@@ -20,7 +22,7 @@
         </thead>
         <tbody>
 
-        {% for product in products %}
+       {% for product in products %}
         <tr>
             <td>{{product.id}}
             <td>{{product.name}}
@@ -32,5 +34,5 @@
         </tbody>
         {% endfor %}
     </table>
-
+    </form>
 {% endblock %}
