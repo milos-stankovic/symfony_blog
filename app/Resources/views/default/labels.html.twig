@@ -1,7 +1,11 @@
-{% block form_label %}
-    <div class="label">
+{#{% block form_label %}#}
+    {#<div class="col-md-3 control-label control-label required">#}
 
-        {{ name|upper }}
+        {#{{ name }}#}
+        {#&#123;&#35;{{ name|upper }}&#35;&#125;#}
 
-    </div>
-{% endblock %}
+    {#</div>#}
+
+    {{ form_label(form, null, {'label_attr': {'class': 'lelee'}}) }}
+
+{#{% endblock %}#}

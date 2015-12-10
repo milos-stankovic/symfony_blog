@@ -1,18 +1,39 @@
-{#form_end<form action="" method="post">#}
-    {#<button type="submit" class="btn btn-primary"></button>#}
-{#</form>#}
-{#{% extends "base.html.twig" %}#}
+{% extends '::base.html.twig' %}
 {% form_theme form 'default/labels.html.twig' %}
-{{ form_start(form) }}
-    {{ form_label(form.name, 'Enter your name') }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.price) }}
-    {{ form_row(form.description, { 'label': 'Description' }) }}
-    {{ form_row(form.category) }}
+{#{% form_theme form 'default/input.html.twig' %}#}
 
-{# renders all fields #}
-{#{{ form_widget(form) }}#}
 
-<button type="submit" class="btn btn-default">Submit</button>
+{% block title %}New Product Form{% endblock title %}
 
-{{ form_end(form) }}
+
+{% block headline %}Add new product:{% endblock headline %}
+
+
+    {% block content %}
+
+
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.price) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.category) }}
+
+        {#{{ form_widget(form) }}#}
+
+        {#<button type="submit" class="btn btn-default">Submit</button>#}
+        <div class="form-group">
+            <div class="">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    {% endblock %}
+
+{% block footer %}
+
+{% endblock footer %}
+
+
+

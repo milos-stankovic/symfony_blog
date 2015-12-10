@@ -262,9 +262,10 @@ class MyController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
+            return $this->redirectToRoute('sort');
         }
-        $session = $this->get('session');
-        $session->getFlashBag()->add('message', 'Product added successfuly');
+//        $session = $this->get('session');
+//        $session->getFlashBag()->add('message', 'Product added successfuly');
 
         return $this->render('default/form.html.twig', array(
             'form' => $form->createView()
