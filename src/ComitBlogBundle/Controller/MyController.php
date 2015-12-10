@@ -5,6 +5,7 @@ namespace ComitBlogBundle\Controller;
 use ComitBlogBundle\Entity\Category;
 use ComitBlogBundle\Entity\Product;
 use ComitBlogBundle\Form\ProductType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -128,7 +129,7 @@ class MyController extends Controller
     }
 
     /**
-     * @Route("/products/{category_id}", defaults={"category_id" = 0}, name="products")
+     * @Route("/products3/{category_id}", defaults={"category_id" = 0}, name="products")
      *
      */
     public function findUsingRepository($category_id)
@@ -153,25 +154,31 @@ class MyController extends Controller
     }
 
     /**
-     * @Route("/products/category/{category_id}", name="sort")
+     * @Route("/products/{category_id}", defaults={"category_id" = 0}, name="sort")
      *
      */
     public function filterByCategoryAction($category_id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $product = $em->getRepository('ComitBlogBundle:Product')
-            ->findByCategory($category_id);
+        if ($category_id == 0) {
+            $product = $em->getRepository('ComitBlogBundle:Product')
+                ->findAll();
+        } else {
+
+            $product = $em->getRepository('ComitBlogBundle:Product')
+                ->findByCategory($category_id);
+        }
+
         $category = $em->getRepository('ComitBlogBundle:Category')
             ->findAll();
-//        dump($product);
+
         return $this->render('default/products_category.html.twig',
             array(
-            'products' => $product,
-            'categories' => $category,
-        ));
+                'products' => $product,
+                'categories' => $category,
+            ));
 
-//        return new Response($view);
     }
 
     //<-------------------------------------- RELATIONS -------->
