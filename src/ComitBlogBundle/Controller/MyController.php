@@ -5,6 +5,7 @@ namespace ComitBlogBundle\Controller;
 use ComitBlogBundle\Entity\Category;
 use ComitBlogBundle\Entity\Product;
 use ComitBlogBundle\Form\ProductType;
+use ComitBlogBundle\Form\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -172,7 +173,7 @@ class MyController extends Controller
 
         $category = $em->getRepository('ComitBlogBundle:Category')
             ->findAll();
-
+        {{ dump($product); }}
         return $this->render('default/products_category.html.twig',
             array(
                 'products' => $product,
@@ -250,7 +251,7 @@ class MyController extends Controller
 
     /**
      * @return Response
-     * @Route("/products/add/new")
+     * @Route("/products/add/new", name="new_product")
      */
     public function addProductAction(Request $request)
     {
@@ -306,9 +307,6 @@ class MyController extends Controller
         return $this->render('default/edit_form.html.twig', array(
             'form' => $form->createView()
         ));
-
-
-
     }
 
     /**
@@ -337,5 +335,91 @@ class MyController extends Controller
         $session->getFlashBag()->add('message', 'Product deleted successfully');
         return $this->redirectToRoute('products');
     }
+// <---------------- Category CRUD ----------------------------------------->
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Route("/product/add-category", name="new_category")
+     */
+    public function addCategoryAction(Request $request)
+    {
+        $category = new Category();
+        $form = $this->createForm(new CategoryType(), $category);
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            $session = $this->get('session');
+            $session->getFlashBag()->add('message', 'Category added successfuly');
+            return $this->redirectToRoute('new_product');
+        }
+
+        return $this->render('default/add_category_form.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @Route("/categories/{id}",defaults={"id" = 1}, name="categories")
+     */
+    public function showCategoryAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository('ComitBlogBundle:Category')
+            ->find($id);
+        $products = $category->getProducts();
+
+        var_dump($products);
+
+
+
+
+        return $this->render('default/category.html.twig',
+            array(
+                'categories' => $category,
+
+            ));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Route("/categories/edit/{id}", name="edit_category")
+     */
+    public function editCategoryAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository('ComitBlogBundle:Category')->find($id);
+        if (!$category) {
+            throw $this->createNotFoundException(
+                'No category found for id '.$id
+            );
+        }
+        $form = $this->createForm(new CategoryType(), $category);
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            $session = $this->get('session');
+            $session->getFlashBag()->add('message', 'Category updated successfully');
+
+            return $this->redirectToRoute('categories');
+
+        }
+
+
+        return $this->render('default/edit_category_form.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
 }

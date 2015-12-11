@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+{% form_theme form 'default/labels.html.twig' %}
+{#{% form_theme form 'default/input.html.twig' %}#}
+
+
+{% block title %}Edit Category Form{% endblock title %}
+
+
+{% block headline %}Edit category:{% endblock headline %}
+
+
+    {% block content %}
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <div class="form-group">
+            <div class="">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    {% endblock %}
+
+{% block footer %}
+
+{% endblock footer %}

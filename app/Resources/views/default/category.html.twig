@@ -1,0 +1,51 @@
+{% extends "default/crud.html.twig" %}
+{% block body %}
+
+<h1>Admin Panel</h1>
+    <table>
+        <thead>
+        <tr>
+            <th> ID
+            <th> Name
+            <th> Description
+            <th> EDIT
+            <th> DELETE
+        </thead>
+        <tbody>
+
+        {% for category in categories %}
+
+        <tr>
+            <td>{{category.id}}
+            <td>{{category.name}}
+            <td>{{category.description}}
+            <td><a href="{{ path('edit_category', {'id': category.id}) }}">EDIT</a>
+            <td><a href="">DELETE</a>
+            {#{{ dump(category.products) }}#}
+
+        </tbody>
+        {% endfor %}
+    </table>
+
+    {#{{dump(category.product)}}#}
+    {#<h1>Related Products</h1>#}
+{#<table>#}
+    {#<thead>#}
+    {#<tr>#}
+        {#<th> ID#}
+        {#<th> Product Name#}
+        {#<th> Price#}
+        {#<th> Description#}
+    {#</thead>#}
+    {#<tbody>#}
+
+    {#{% for product in products %}#}
+    {#<tr>#}
+        {#<td>{{product.id}}#}
+        {#<td>{{product.name}}#}
+        {#<td>{{product.price}}#}
+        {#<td>{{product.description}}#}
+    {#</tbody>#}
+    {#{% endfor %}#}
+    {#</table>#}
+    {% endblock %}

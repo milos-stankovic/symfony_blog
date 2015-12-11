@@ -41,6 +41,13 @@ class Category
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
 
     /**
      * Get id
@@ -113,5 +120,29 @@ class Category
     public function __toString()
     {
         return strval($this->name);
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Category
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
